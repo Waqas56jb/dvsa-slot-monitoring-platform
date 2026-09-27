@@ -1,4 +1,4 @@
-# SlotPilot Admin — page build brief (for contributors)
+# SlotPilot Admin — contributing guide
 
 Stack: React 19 + Vite 8 + Tailwind v4 (tokens in `src/index.css`) + React Router 7 + Framer Motion + Recharts + lucide-react.
 Path alias `@/` → `src/`. JavaScript/JSX only.
@@ -26,6 +26,6 @@ Path alias `@/` → `src/`. JavaScript/JSX only.
 13. **Compliance**: never show/imply CAPTCHA bypass, bot evasion, automated booking, or DVSA credentials. Slots progress Detected → Matched → Alerted → user action. Show "Booked" only as a backend-confirmed status. Mask sensitive identifiers (licence refs via `licenceMasked` + `MaskedValue` gated by `P.LEARNERS_REVEAL`).
 14. Dates/times ONLY via `@/utils/format` (formatDate, formatDateTime, formatTime, formatRelative, formatCurrency…).
 15. Keep components small; extract page-local subcomponents into files in the same page folder when a file passes ~300 lines.
-16. **Do NOT edit shared files** (`components/common|tables|charts|layout|modals|forms`, `context/`, `hooks/`, `lib/`, `constants/`, `routes/`, `App.jsx`) — other people are working in parallel. If you truly need a shared change, note it in your final report instead. You MAY edit the services/data files you own.
-17. Verify with `npx vite build` from `admin-panel/`. Other contributors' files may be mid-edit — only fix errors in YOUR files. Do not commit.
+16. Prefer page-local components; change shared components (`components/*`, `hooks/`, `lib/`, `context/`) deliberately and keep their APIs backward compatible.
+17. Verify with `npm run build` from `admin-panel/`.
 18. Copy tone: concise, professional British English ("Monitoring job paused.", "Unable to load payments. Please try again.").

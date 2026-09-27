@@ -1,35 +1,37 @@
 import { useDocumentTitle } from '@/hooks';
 import { useHashScroll } from '@/components/marketing/useHashScroll';
-import { Hero } from '@/components/marketing/Hero';
-import { TrustStrip } from '@/components/marketing/TrustStrip';
-import { ProblemSection } from '@/components/marketing/ProblemSection';
-import { HowItWorksSection } from '@/components/marketing/HowItWorksSection';
-import { CentresShowcase } from '@/components/marketing/CentresShowcase';
-import { SlotDetectionShowcase } from '@/components/marketing/SlotDetectionShowcase';
-import { AlertsShowcase } from '@/components/marketing/AlertsShowcase';
-import { LearnersShowcase } from '@/components/marketing/LearnersShowcase';
-import { ControlSection } from '@/components/marketing/ControlSection';
+import { LandingHero } from '@/components/landing/hero/LandingHero';
+import { TrustMarquee } from '@/components/landing/TrustMarquee';
+import { AudienceSection } from '@/components/landing/AudienceSection';
+import { WorkflowSection } from '@/components/landing/workflow/WorkflowSection';
+import { CoverageSection } from '@/components/landing/CoverageSection';
+import { FeatureBento } from '@/components/landing/FeatureBento';
+import { StatsBand } from '@/components/landing/StatsBand';
+import { Testimonials } from '@/components/landing/Testimonials';
+import { GalleryMarquee } from '@/components/landing/GalleryMarquee';
+import { LandingFinalCta } from '@/components/landing/FinalCta';
+import { useSmoothScroll } from '@/components/landing/useSmoothScroll';
 import { PricingSection } from '@/components/marketing/PricingSection';
 import { FaqSection } from '@/components/marketing/FaqAccordion';
-import { FinalCta } from '@/components/marketing/FinalCta';
 
 export default function HomePage() {
   useDocumentTitle('');
   useHashScroll();
+  useSmoothScroll();
   return (
     <>
-      <Hero />
-      <TrustStrip />
-      <ProblemSection />
-      <HowItWorksSection tone="surface" />
-      <CentresShowcase tone="canvas" />
-      <SlotDetectionShowcase tone="surface" />
-      <AlertsShowcase tone="canvas" />
-      <LearnersShowcase tone="surface" />
-      <ControlSection />
-      <PricingSection tone="canvas" />
-      <FaqSection tone="surface" ids={['what', 'how', 'auto', 'learners', 'speed', 'stop']} />
-      <FinalCta />
+      <LandingHero />
+      <TrustMarquee />
+      <AudienceSection />
+      <WorkflowSection />
+      <CoverageSection />
+      <FeatureBento />
+      <StatsBand />
+      <Testimonials />
+      <GalleryMarquee />
+      <PricingSection tone="surface" />
+      <FaqSection tone="canvas" ids={['what', 'how', 'auto', 'learners', 'speed', 'stop']} />
+      <LandingFinalCta />
     </>
   );
 }

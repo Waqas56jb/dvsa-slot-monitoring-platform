@@ -62,6 +62,22 @@
     0% { transform: scale(0.8); opacity: 0.7; }
     80%, 100% { transform: scale(2.4); opacity: 0; }
   }
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-marquee-reverse: marquee-reverse var(--marquee-duration, 40s) linear infinite;
+  --animate-marquee-y: marquee-y var(--marquee-duration, 40s) linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes marquee-reverse {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes marquee-y {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
   @keyframes shimmer {
     0% { background-position: -400px 0; }
     100% { background-position: 400px 0; }
@@ -199,6 +215,15 @@
     background: linear-gradient(90deg, var(--sp-surface-muted) 0%, var(--sp-surface-sunken) 40%, var(--sp-surface-muted) 80%);
     background-size: 800px 100%;
     @apply animate-shimmer;
+  }
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .mask-fade-y {
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  }
+  .pause-on-hover:hover > * {
+    animation-play-state: paused;
   }
   .pb-safe {
     padding-bottom: max(env(safe-area-inset-bottom), 0px);
