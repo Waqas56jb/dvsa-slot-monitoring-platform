@@ -36,10 +36,11 @@ function RotatingWord() {
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={heroWords[i]}
-          initial={{ opacity: 0, y: '0.45em', filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, y: '-0.35em', filter: 'blur(10px)' }}
-          transition={{ duration: 0.55, ease: EASE }}
+          // clip-path wipe (no transform: transforms break gradient text in Chrome)
+          initial={{ clipPath: 'inset(0 100% 0 0)', opacity: 1 }}
+          animate={{ clipPath: 'inset(0 0% 0 0)', opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.25 } }}
+          transition={{ duration: 0.75, ease: EASE }}
           className="col-start-1 row-start-1 whitespace-nowrap"
         >
           {/* gradient text lives on an inner span — filter + background-clip:text on one element renders blank in Chrome */}
@@ -50,6 +51,13 @@ function RotatingWord() {
     </span>
   );
 }
+
+// No `filter` on anything that contains gradient (background-clip:text) text — Chrome renders it blank.
+const rise = (delay) => ({
+  initial: { opacity: 0, y: 28 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.9, ease: EASE, delay },
+});
 
 const fade = (delay) => ({
   initial: { opacity: 0, y: 22, filter: 'blur(8px)' },
@@ -121,7 +129,7 @@ export function LandingHero() {
 
           <motion.h1
             id="hero-title"
-            {...fade(0.2)}
+            {...rise(0.2)}
             className="mt-6 text-balance font-display text-[2.7rem] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-6xl lg:text-[4.6rem]"
           >
             Get your driving test <RotatingWord />

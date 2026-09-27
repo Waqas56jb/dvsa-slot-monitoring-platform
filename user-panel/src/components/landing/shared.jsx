@@ -36,7 +36,7 @@ export function Marquee({ children, direction = 'left', duration = 40, className
   const vertical = direction === 'up';
   return (
     <div className={cn('overflow-hidden', vertical ? 'mask-fade-y' : 'mask-fade-x', pauseOnHover && 'pause-on-hover', className)}>
-      <div className={cn('flex w-max', vertical && 'w-full flex-col', anim, trackClassName)} style={{ '--marquee-duration': `${duration}s` }}>
+      <div className={cn('flex', vertical ? 'w-full flex-col' : 'w-max', anim, trackClassName)} style={{ '--marquee-duration': `${duration}s` }}>
         <div className={cn('flex shrink-0', vertical ? 'flex-col' : '')}>{children}</div>
         <div className={cn('flex shrink-0', vertical ? 'flex-col' : '')} aria-hidden="true">{children}</div>
       </div>
