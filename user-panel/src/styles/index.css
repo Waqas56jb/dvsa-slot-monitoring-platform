@@ -1,0 +1,215 @@
+@import 'tailwindcss';
+
+/* Class-based dark mode: <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens.
+ * Semantic colours resolve to CSS variables so light/dark themes switch
+ * without sprinkling `dark:` variants through every component.
+ */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: var(--sp-canvas);
+  --color-surface: var(--sp-surface);
+  --color-surface-muted: var(--sp-surface-muted);
+  --color-surface-sunken: var(--sp-surface-sunken);
+  --color-line: var(--sp-line);
+  --color-line-strong: var(--sp-line-strong);
+
+  --color-ink: var(--sp-ink);
+  --color-ink-soft: var(--sp-ink-soft);
+  --color-muted: var(--sp-muted);
+  --color-subtle: var(--sp-subtle);
+
+  --color-brand: var(--sp-brand);
+  --color-brand-hover: var(--sp-brand-hover);
+  --color-brand-soft: var(--sp-brand-soft);
+  --color-brand-ink: var(--sp-brand-ink);
+
+  --color-success: var(--sp-success);
+  --color-success-soft: var(--sp-success-soft);
+  --color-success-ink: var(--sp-success-ink);
+  --color-warning: var(--sp-warning);
+  --color-warning-soft: var(--sp-warning-soft);
+  --color-warning-ink: var(--sp-warning-ink);
+  --color-danger: var(--sp-danger);
+  --color-danger-soft: var(--sp-danger-soft);
+  --color-danger-ink: var(--sp-danger-ink);
+  --color-info: var(--sp-info);
+  --color-info-soft: var(--sp-info-soft);
+  --color-info-ink: var(--sp-info-ink);
+
+  /* Fixed navy used for dark hero panels regardless of theme */
+  --color-night: #0b1220;
+  --color-night-soft: #131c2e;
+
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.125rem;
+  --radius-3xl: 1.5rem;
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -4px rgb(15 23 42 / 0.08);
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 12px 32px -12px rgb(15 23 42 / 0.12);
+  --shadow-float: 0 2px 6px rgb(15 23 42 / 0.06), 0 24px 60px -16px rgb(15 23 42 / 0.22);
+  --shadow-brand: 0 8px 24px -8px rgb(59 91 253 / 0.55);
+
+  --animate-pulse-ring: pulse-ring 1.8s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    80%, 100% { transform: scale(2.4); opacity: 0; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+}
+
+:root {
+  --sp-canvas: #f7f8fb;
+  --sp-surface: #ffffff;
+  --sp-surface-muted: #f3f5f9;
+  --sp-surface-sunken: #eef1f6;
+  --sp-line: #e5e8ef;
+  --sp-line-strong: #d3d9e4;
+
+  --sp-ink: #0b1220;
+  --sp-ink-soft: #2b3548;
+  --sp-muted: #5b6678;
+  --sp-subtle: #8e98aa;
+
+  --sp-brand: #3b5bfd;
+  --sp-brand-hover: #2c49e6;
+  --sp-brand-soft: #eef1ff;
+  --sp-brand-ink: #2238c4;
+
+  --sp-success: #10b981;
+  --sp-success-soft: #e8f8f1;
+  --sp-success-ink: #047857;
+  --sp-warning: #f59e0b;
+  --sp-warning-soft: #fdf4e3;
+  --sp-warning-ink: #a45a05;
+  --sp-danger: #ef4444;
+  --sp-danger-soft: #fdeeee;
+  --sp-danger-ink: #b42323;
+  --sp-info: #0ea5e9;
+  --sp-info-soft: #e7f5fc;
+  --sp-info-ink: #0369a1;
+
+  color-scheme: light;
+}
+
+.dark {
+  --sp-canvas: #0a0f1a;
+  --sp-surface: #111827;
+  --sp-surface-muted: #161f31;
+  --sp-surface-sunken: #0d1422;
+  --sp-line: #222d42;
+  --sp-line-strong: #2f3b54;
+
+  --sp-ink: #eef2f8;
+  --sp-ink-soft: #c9d2e1;
+  --sp-muted: #94a0b5;
+  --sp-subtle: #6b7891;
+
+  --sp-brand: #5b7cff;
+  --sp-brand-hover: #7390ff;
+  --sp-brand-soft: #1a2448;
+  --sp-brand-ink: #a9b9ff;
+
+  --sp-success: #34d399;
+  --sp-success-soft: #0f2a22;
+  --sp-success-ink: #6ee7b7;
+  --sp-warning: #fbbf24;
+  --sp-warning-soft: #2c2210;
+  --sp-warning-ink: #fcd34d;
+  --sp-danger: #f87171;
+  --sp-danger-soft: #2e1417;
+  --sp-danger-ink: #fca5a5;
+  --sp-info: #38bdf8;
+  --sp-info-soft: #0c2533;
+  --sp-info-ink: #7dd3fc;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-ink;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--sp-brand) 22%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--sp-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button, [role='button'] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--sp-line) 70%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--sp-line) 70%, transparent) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(color-mix(in srgb, var(--sp-line-strong) 90%, transparent) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 55%, transparent);
+  }
+  .mask-radial {
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 72%);
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sp-line-strong) transparent;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--sp-surface-muted) 0%, var(--sp-surface-sunken) 40%, var(--sp-surface-muted) 80%);
+    background-size: 800px 100%;
+    @apply animate-shimmer;
+  }
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
